@@ -1,0 +1,17 @@
+body{
+    direction: rtl;
+}
+
+a {
+    text-decoration: none;
+}
+
+.w400  {
+    width: 400px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.right-side{
+text-align: right;
+}
