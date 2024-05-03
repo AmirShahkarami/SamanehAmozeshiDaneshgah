@@ -70,11 +70,11 @@ if (!(isset($_SESSION["user_logged"]))) {
         <td>" . $row["student_family"] . "</td>
         <td>" . $row["student_codemeli"] . "</td>
         <td>
-        <a href=\"user-managment-update.php?user_code=$user_code\">
+        <a href=\"user-managment-update.php?user_code=$student_code\">
         بروزرسانی
         </a>
         |
-        <a href=\"user-managment-delete.php?user_code=$user_code\" class=''>
+        <a href=\"user-managment-delete.php?user_code=$student_code\" class=''>
         حذف
         </a>
 </td>

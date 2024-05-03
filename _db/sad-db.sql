@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2024 at 08:13 PM
+-- Generation Time: May 03, 2024 at 05:30 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -35,6 +35,32 @@ CREATE TABLE `dars` (
   `tozihat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `dars`
+--
+
+INSERT INTO `dars` (`dars_code`, `dars_name`, `dars_vahed`, `dars_zarfeiat`, `tozihat`) VALUES
+(1, 'تاریخ', 2, 30, ''),
+(2, 'ریاضی', 3, 45, ''),
+(3, 'دانش خانواده', 2, 45, ''),
+(4, 'فارسی', 3, 45, ''),
+(5, 'زبان عمومی', 3, 45, ''),
+(6, 'طراحی سایت', 3, 25, ''),
+(7, 'شبکه ', 3, 25, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `entekhab_vahed`
+--
+
+CREATE TABLE `entekhab_vahed` (
+  `id` int(11) NOT NULL,
+  `term_ostad_dars_id` int(11) NOT NULL,
+  `student_code` int(11) NOT NULL,
+  `tozihat` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -43,8 +69,7 @@ CREATE TABLE `dars` (
 
 CREATE TABLE `hozor_gheyab` (
   `hozor_gheyab_id` int(11) NOT NULL,
-  `term_ostad_dars_id` int(11) NOT NULL,
-  `student_code` int(11) NOT NULL,
+  `entekhab_vahed_code` int(11) NOT NULL,
   `jaleseh_id` int(11) NOT NULL,
   `vazeiat_hozor` varchar(50) NOT NULL,
   `movajah` text NOT NULL
@@ -78,6 +103,16 @@ CREATE TABLE `maghtaa` (
   `tozihat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `maghtaa`
+--
+
+INSERT INTO `maghtaa` (`maghtaa_code`, `maghtaa_onvan`, `tozihat`) VALUES
+(1, 'فناوری اطلاعات ', 'یادگیری واموزش طراحی سایت '),
+(2, 'حسابداری', 'اموزش ریاضی پیشرفته برای حساب و کتاب های دفتری'),
+(3, 'مکانیک', 'اموزش تعمیر و یادگیری تمام ابزار های تعمیر خودرو و وسایل های کارخانه ای '),
+(4, 'برق و قدرت ', 'اموزش های لازم برای برق کشی و جریانات برقی\r\n');
+
 -- --------------------------------------------------------
 
 --
@@ -86,8 +121,7 @@ CREATE TABLE `maghtaa` (
 
 CREATE TABLE `nomarat` (
   `nomarat_code` int(11) NOT NULL,
-  `term_ostad_dars_id` int(11) NOT NULL,
-  `student_code` int(11) NOT NULL,
+  `entekhab_vahed_code` int(11) NOT NULL,
   `nomreh` double NOT NULL,
   `vazeiat_eeteraz` varchar(50) NOT NULL,
   `tozihat` text NOT NULL
@@ -109,6 +143,15 @@ CREATE TABLE `ostad` (
   `tozihat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `ostad`
+--
+
+INSERT INTO `ostad` (`ostad_code`, `ostad_name`, `ostad_family`, `ostad_madrak`, `ostad_reshtah`, `user_code`, `tozihat`) VALUES
+(1, 'علی', 'مهرنیا', 'فوق لیسانس', 'کامپیوتر طراحی سایت ', 4, ''),
+(2, 'ناصر ', 'شیرازی', 'لیسانس', 'ریاضی', 11, ''),
+(3, 'رضا ', 'علیزاده', 'فوق لیسانس', 'فارسی', 19, '');
+
 -- --------------------------------------------------------
 
 --
@@ -121,6 +164,16 @@ CREATE TABLE `reshte` (
   `maghtaa_code` int(11) NOT NULL,
   `tozihat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `reshte`
+--
+
+INSERT INTO `reshte` (`reshte_code`, `reshte_name`, `maghtaa_code`, `tozihat`) VALUES
+(1, 'فناوری اطلاعات', 1, ''),
+(2, 'حسابداری', 2, ''),
+(3, 'مکانیک', 3, ''),
+(4, 'برق و قدرت', 4, '');
 
 -- --------------------------------------------------------
 
@@ -135,10 +188,21 @@ CREATE TABLE `student` (
   `student_codemeli` int(11) NOT NULL,
   `student_father` varchar(50) NOT NULL,
   `student_tel` varchar(13) NOT NULL,
-  `student_tel_amily` varchar(13) NOT NULL,
+  `student_tel_family` varchar(13) NOT NULL,
   `user_code` int(11) NOT NULL,
-  `tozihat` text NOT NULL
+  `tozihat` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `student`
+--
+
+INSERT INTO `student` (`student_code`, `student_name`, `student_family`, `student_codemeli`, `student_father`, `student_tel`, `student_tel_family`, `user_code`, `tozihat`) VALUES
+(101, 'محمد ', 'شهبازی', 1810726298, 'امیر', '0916336103', '09166667777', 15, NULL),
+(102, 'امیر', 'رضا حسینی', 1810722222, 'محمد', '0916330000', '0916666000', 16, NULL),
+(103, 'حسن', 'میرزایی', 1810720103, 'امیررضا', '0916330103', '09166660103', 17, NULL),
+(104, 'امید', 'رضایی', 1810720104, 'حسینی', '0916330104', '09166660104', 18, NULL),
+(105, 'مهدی', 'مهدیان', 1810720105, 'امید', '0916330105', '09166660105', 19, NULL);
 
 -- --------------------------------------------------------
 
@@ -149,9 +213,19 @@ CREATE TABLE `student` (
 CREATE TABLE `term` (
   `term_code` int(11) NOT NULL,
   `term_sal_tahsili` varchar(9) NOT NULL,
-  `term_shoareh` int(11) NOT NULL,
+  `term_shomareh` int(11) NOT NULL,
   `tozihat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `term`
+--
+
+INSERT INTO `term` (`term_code`, `term_sal_tahsili`, `term_shomareh`, `tozihat`) VALUES
+(1, '140014011', 1, ''),
+(2, '140014012', 2, ''),
+(3, '140014013', 3, ''),
+(4, '140114021', 4, '');
 
 -- --------------------------------------------------------
 
@@ -188,9 +262,12 @@ INSERT INTO `user` (`user_code`, `username`, `password`, `role`) VALUES
 (1, 'admin', '123', 'admin'),
 (3, 'reza', '2', 'student'),
 (4, 'ali', '123', 'teacher'),
-(8, 'ففففف', 't2', 'teacher'),
-(11, 'u2', '2', 'teacher'),
-(15, 'u47', '44', 'teacher');
+(11, 'naser', '2', 'teacher'),
+(15, 's1', '1', 'student'),
+(16, 's2', '2', 'student'),
+(17, 's3', '3', 'student'),
+(18, 's4', '4', 'student'),
+(19, 't5', '5', 'teacher');
 
 --
 -- Indexes for dumped tables
@@ -203,16 +280,27 @@ ALTER TABLE `dars`
   ADD PRIMARY KEY (`dars_code`);
 
 --
+-- Indexes for table `entekhab_vahed`
+--
+ALTER TABLE `entekhab_vahed`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student_code` (`student_code`),
+  ADD KEY `term_ostad_dars_id` (`term_ostad_dars_id`);
+
+--
 -- Indexes for table `hozor_gheyab`
 --
 ALTER TABLE `hozor_gheyab`
-  ADD PRIMARY KEY (`hozor_gheyab_id`);
+  ADD PRIMARY KEY (`hozor_gheyab_id`),
+  ADD KEY `entekhab_vahed_code` (`entekhab_vahed_code`),
+  ADD KEY `jaleseh_id` (`jaleseh_id`);
 
 --
 -- Indexes for table `jaleseh`
 --
 ALTER TABLE `jaleseh`
-  ADD PRIMARY KEY (`jaleseh_code`);
+  ADD PRIMARY KEY (`jaleseh_code`),
+  ADD KEY `term_ostad_dars_id` (`term_ostad_dars_id`);
 
 --
 -- Indexes for table `maghtaa`
@@ -224,13 +312,15 @@ ALTER TABLE `maghtaa`
 -- Indexes for table `nomarat`
 --
 ALTER TABLE `nomarat`
-  ADD PRIMARY KEY (`nomarat_code`);
+  ADD PRIMARY KEY (`nomarat_code`),
+  ADD KEY `entekhab_vahed_code` (`entekhab_vahed_code`);
 
 --
 -- Indexes for table `ostad`
 --
 ALTER TABLE `ostad`
-  ADD PRIMARY KEY (`ostad_code`);
+  ADD PRIMARY KEY (`ostad_code`),
+  ADD KEY `user_code` (`user_code`);
 
 --
 -- Indexes for table `reshte`
@@ -242,7 +332,8 @@ ALTER TABLE `reshte`
 -- Indexes for table `student`
 --
 ALTER TABLE `student`
-  ADD PRIMARY KEY (`student_code`);
+  ADD PRIMARY KEY (`student_code`),
+  ADD KEY `user_code` (`user_code`);
 
 --
 -- Indexes for table `term`
@@ -254,7 +345,10 @@ ALTER TABLE `term`
 -- Indexes for table `term_ostad_dars`
 --
 ALTER TABLE `term_ostad_dars`
-  ADD PRIMARY KEY (`term_ostad_dars_id`);
+  ADD PRIMARY KEY (`term_ostad_dars_id`),
+  ADD KEY `dars_code` (`dars_code`),
+  ADD KEY `ostad_code` (`ostad_code`),
+  ADD KEY `term_code` (`term_code`);
 
 --
 -- Indexes for table `user`
@@ -267,10 +361,16 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `entekhab_vahed`
+--
+ALTER TABLE `entekhab_vahed`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `hozor_gheyab`
 --
 ALTER TABLE `hozor_gheyab`
-  MODIFY `hozor_gheyab_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `hozor_gheyab_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `jaleseh`
@@ -294,7 +394,57 @@ ALTER TABLE `term_ostad_dars`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `user_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `entekhab_vahed`
+--
+ALTER TABLE `entekhab_vahed`
+  ADD CONSTRAINT `entekhab_vahed_ibfk_1` FOREIGN KEY (`student_code`) REFERENCES `student` (`student_code`),
+  ADD CONSTRAINT `entekhab_vahed_ibfk_2` FOREIGN KEY (`term_ostad_dars_id`) REFERENCES `term_ostad_dars` (`term_ostad_dars_id`);
+
+--
+-- Constraints for table `hozor_gheyab`
+--
+ALTER TABLE `hozor_gheyab`
+  ADD CONSTRAINT `hozor_gheyab_ibfk_1` FOREIGN KEY (`entekhab_vahed_code`) REFERENCES `entekhab_vahed` (`id`),
+  ADD CONSTRAINT `hozor_gheyab_ibfk_2` FOREIGN KEY (`jaleseh_id`) REFERENCES `jaleseh` (`jaleseh_code`);
+
+--
+-- Constraints for table `jaleseh`
+--
+ALTER TABLE `jaleseh`
+  ADD CONSTRAINT `jaleseh_ibfk_1` FOREIGN KEY (`term_ostad_dars_id`) REFERENCES `term_ostad_dars` (`term_ostad_dars_id`);
+
+--
+-- Constraints for table `nomarat`
+--
+ALTER TABLE `nomarat`
+  ADD CONSTRAINT `nomarat_ibfk_1` FOREIGN KEY (`entekhab_vahed_code`) REFERENCES `entekhab_vahed` (`id`);
+
+--
+-- Constraints for table `ostad`
+--
+ALTER TABLE `ostad`
+  ADD CONSTRAINT `ostad_ibfk_1` FOREIGN KEY (`user_code`) REFERENCES `user` (`user_code`);
+
+--
+-- Constraints for table `student`
+--
+ALTER TABLE `student`
+  ADD CONSTRAINT `student_ibfk_1` FOREIGN KEY (`user_code`) REFERENCES `user` (`user_code`);
+
+--
+-- Constraints for table `term_ostad_dars`
+--
+ALTER TABLE `term_ostad_dars`
+  ADD CONSTRAINT `term_ostad_dars_ibfk_1` FOREIGN KEY (`dars_code`) REFERENCES `dars` (`dars_code`),
+  ADD CONSTRAINT `term_ostad_dars_ibfk_2` FOREIGN KEY (`ostad_code`) REFERENCES `ostad` (`ostad_code`),
+  ADD CONSTRAINT `term_ostad_dars_ibfk_3` FOREIGN KEY (`term_code`) REFERENCES `term` (`term_code`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

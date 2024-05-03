@@ -47,7 +47,7 @@ session_start();
             } else if ($user["role"] == "teacher") {
                 header("location:teacher/teacher-dashboard.php");
             } else if ($user["role"] == "admin") {
-                header("location:admin/user-list.php");
+                header("location:admin/admin-dashboard.php");
             }
         } else {
             ?>

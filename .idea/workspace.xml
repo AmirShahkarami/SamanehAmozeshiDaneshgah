@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a4d1e45-b67d-4f83-8da5-2dabdef6ca0c" name="Changes" comment="3" />
+    <list default="true" id="2a4d1e45-b67d-4f83-8da5-2dabdef6ca0c" name="Changes" comment="4">
+      <change afterPath="$PROJECT_DIR$/admin/admin-dashboard.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/admin-entekhabvahed.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_db/sad-db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/_db/sad-db.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login-action.php" beforeDir="false" afterPath="$PROJECT_DIR$/login-action.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teacher/teacher-dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/teacher/teacher-dashboard.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,6 +38,9 @@
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="2dSFS51qXt1aIGN3TEBwtsqMI3q" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -82,6 +92,7 @@
       <workItem from="1713972771012" duration="4548000" />
       <workItem from="1714747850591" duration="352000" />
       <workItem from="1714748264256" duration="65000" />
+      <workItem from="1714748623253" duration="5458000" />
     </task>
     <task id="LOCAL-00001" summary="second commit">
       <option name="closed" value="true" />
@@ -99,7 +110,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714748286379</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="4">
+      <option name="closed" value="true" />
+      <created>1714748654295</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1714748654296</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -108,6 +127,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="second commit" />
     <MESSAGE value="3" />
-    <option name="LAST_COMMIT_MESSAGE" value="3" />
+    <MESSAGE value="4" />
+    <option name="LAST_COMMIT_MESSAGE" value="4" />
   </component>
 </project>
