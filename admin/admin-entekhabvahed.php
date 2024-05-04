@@ -17,6 +17,7 @@ if (!(isset($_SESSION["user_logged"]))) {
     <title>داشبورد استاد</title>
     <link rel="stylesheet" href="../assets/bootstrap-5.3.3-dist/css/bootstrap.rtl.min.css">
     <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/jquery/jquery.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -56,11 +57,11 @@ if (!(isset($_SESSION["user_logged"]))) {
 
             $sql_term = "SELECT * FROM `term`";
             $sql_ostad = "SELECT * FROM `ostad`";
-            $sql_dars = "SELECT * FROM `dars`";
+            //$sql_dars = "SELECT * FROM `dars`";
 
             $result_term = $conn->query($sql_term);
             $result_ostad = $conn->query($sql_ostad);
-            $result_dars = $conn->query($sql_dars);
+            //$result_dars = $conn->query($sql_dars);
 
             if ($result_term->num_rows > 0) {
 
@@ -92,7 +93,7 @@ if (!(isset($_SESSION["user_logged"]))) {
             echo "
 
 <td>
-         <select class='form-select' aria-label='Default select example' name='ostad'>
+         <select class='form-select' aria-label='Default select example' name='ostad'  id='select_ostad'>
   <option selected>انتخاب استاد</option>
   ";
             while ($row_ostad = $result_ostad->fetch_assoc()){
@@ -117,14 +118,9 @@ if (!(isset($_SESSION["user_logged"]))) {
             echo "
 
 <td>
-         <select class='form-select' aria-label='Default select example' name='dars'>
-  <option selected>انتخاب درس</option>
+         <select class='form-select' aria-label='Default select example' name='dars' id='select_dros_ostad'>  
   ";
-            while ($row_dars = $result_dars->fetch_assoc()){
-                $dars_code = $row_dars["dars_code"];
-                $dars_name = $row_dars["dars_name"];
-                echo "<option value='$dars_code'>$dars_name</option>";
-            }
+
             echo "</select>
 </td>
 ";
@@ -138,6 +134,8 @@ if (!(isset($_SESSION["user_logged"]))) {
         </tbody>
     </table>
 
+        <div id="get_data_from_ajax"></div>
+
     <form action="" method="get">
         <div class="mb-3 mt-3">
             <label for="username" class="form-label">نام کاربری</label>
@@ -150,8 +148,28 @@ if (!(isset($_SESSION["user_logged"]))) {
     ?>
 
 </div>
-
+<script>
+    $(document).ready(function(){
+        $("#select_ostad").on( "change", function() {
+            //console.log("input#basic-default-name")
+            var str =  $("#select_ostad").val()
+            console.log(str)
+            $.ajax({
+                type: "GET",
+                url: "ajax-ostaddars.php",
+                //data: "fname=" + fname + '&lname=' + lname,
+                data:"data=" + str,
+                success: function (result) {
+                    //console.log(data2);
+                    $("#get_data_from_ajax").html(result)
+                    $("#select_dros_ostad").html(result)
+                }
+            });
+        });
+    });
+</script>
 <script src="../assets/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
 
