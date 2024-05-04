@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a4d1e45-b67d-4f83-8da5-2dabdef6ca0c" name="Changes" comment="4" />
+    <list default="true" id="2a4d1e45-b67d-4f83-8da5-2dabdef6ca0c" name="Changes" comment="remove test from abasfard admin-dashboard.php linr 28">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,6 +29,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
   <component name="ProjectId" id="2dSFS51qXt1aIGN3TEBwtsqMI3q" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -35,12 +40,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\sad\teacher" />
@@ -73,6 +83,7 @@
       <workItem from="1714748264256" duration="65000" />
       <workItem from="1714748623253" duration="5458000" />
       <workItem from="1714809631588" duration="249000" />
+      <workItem from="1714811227143" duration="841000" />
     </task>
     <task id="LOCAL-00001" summary="second commit">
       <option name="closed" value="true" />
@@ -98,7 +109,23 @@
       <option name="project" value="LOCAL" />
       <updated>1714748654296</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="test from abasfard admin-dashboard.php linr 28">
+      <option name="closed" value="true" />
+      <created>1714811420973</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1714811420973</updated>
+    </task>
+    <task id="LOCAL-00005" summary="remove test from abasfard admin-dashboard.php linr 28">
+      <option name="closed" value="true" />
+      <created>1714811534842</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1714811534842</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -108,6 +135,8 @@
     <MESSAGE value="second commit" />
     <MESSAGE value="3" />
     <MESSAGE value="4" />
-    <option name="LAST_COMMIT_MESSAGE" value="4" />
+    <MESSAGE value="test from abasfard admin-dashboard.php linr 28" />
+    <MESSAGE value="remove test from abasfard admin-dashboard.php linr 28" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove test from abasfard admin-dashboard.php linr 28" />
   </component>
 </project>
