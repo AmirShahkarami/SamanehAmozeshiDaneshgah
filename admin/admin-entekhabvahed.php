@@ -69,7 +69,7 @@ if (!(isset($_SESSION["user_logged"]))) {
          echo "
 <tr>
 <td>
-         <select class='form-select' aria-label='Default select example' name='term'>
+         <select class='form-select' aria-label='Default select example' name='term' id='select-term'>
   <option selected>انتخاب ترم</option>
   ";
          while ($row_term = $result_term->fetch_assoc()){
@@ -112,7 +112,7 @@ if (!(isset($_SESSION["user_logged"]))) {
         }
 
 
-        if ($result_dars->num_rows > 0) {
+
 
             //  (`dars_code`, `dars_name`, `dars_vahed`, `dars_zarfeiat`, `tozihat`)
             echo "
@@ -123,26 +123,47 @@ if (!(isset($_SESSION["user_logged"]))) {
 
             echo "</select>
 </td>
+
 ";
-        }
-        else {
-            echo "درسی ثبت نشده!";
-        }
 
             ?>
+            <td>
+            <form id="form_term_ostad_dars_add" action="admin-term-ostad-dars-add.php" method="post">
+                `term_ostad_dars_id`, `term_code`, `ostad_dars_code`
+
+                <input type="hidden" name="term_code" id="term_code" value="">
+                <input type="hidden" name="ostad_code" id="ostad_code" value="">
+                <input type="hidden" name="dars_code" id="dars_code" value="">
+                <input type="submit" value="ثبت">
+            </form>
+            </td>
         </tr>
         </tbody>
     </table>
 
         <div id="get_data_from_ajax"></div>
 
-    <form action="" method="get">
-        <div class="mb-3 mt-3">
-            <label for="username" class="form-label">نام کاربری</label>
-            <input type="search" class="form-control" id="username" placeholder="جستجوی نام کاربری" name="username"
-                   value="">
-        </div>
-    </form>
+    <table class="table table-striped" id="table_termostaddars_rows">
+        <thead>
+        <tr>
+            <th scope="col">ترم</th>
+            <th scope="col">استاد</th>
+            <th scope="col">درس</th>
+            <th scope="col">عملیات</th>
+        </tr>
+        </thead>
+        <tr>
+            <th scope="col">ترم</th>
+            <th scope="col">استاد</th>
+            <th scope="col">درس</th>
+            <th scope="col">عملیات</th>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
     <?php
     }
     ?>
@@ -150,9 +171,20 @@ if (!(isset($_SESSION["user_logged"]))) {
 </div>
 <script>
     $(document).ready(function(){
+        $("#select-term").on( "change", function() {
+            $("#form_term_ostad_dars_add>#term_code").val(this.value)
+        });
+
+        $("#select_dros_ostad").on( "change", function() {
+            $("#form_term_ostad_dars_add>#dars_code").val(this.value)
+        });
+
+
+
         $("#select_ostad").on( "change", function() {
             //console.log("input#basic-default-name")
             var str =  $("#select_ostad").val()
+            $("#form_term_ostad_dars_add>#ostad_code").val(str)
             console.log(str)
             $.ajax({
                 type: "GET",
@@ -161,7 +193,7 @@ if (!(isset($_SESSION["user_logged"]))) {
                 data:"data=" + str,
                 success: function (result) {
                     //console.log(data2);
-                    $("#get_data_from_ajax").html(result)
+                    //$("#get_data_from_ajax").html(result)
                     $("#select_dros_ostad").html(result)
                 }
             });

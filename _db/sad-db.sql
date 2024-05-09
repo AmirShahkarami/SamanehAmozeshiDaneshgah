@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2024 at 06:45 PM
+-- Generation Time: May 09, 2024 at 07:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -237,6 +237,7 @@ CREATE TABLE `term` (
   `term_code` int(11) NOT NULL,
   `term_sal_tahsili` varchar(9) NOT NULL,
   `term_shomareh` int(11) NOT NULL,
+  `term_active` tinyint(1) NOT NULL,
   `tozihat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -244,11 +245,11 @@ CREATE TABLE `term` (
 -- Dumping data for table `term`
 --
 
-INSERT INTO `term` (`term_code`, `term_sal_tahsili`, `term_shomareh`, `tozihat`) VALUES
-(1, '1400-1401', 1, ''),
-(2, '1400-1401', 2, ''),
-(3, '1400-1401', 3, ''),
-(4, '1401-1402', 1, '');
+INSERT INTO `term` (`term_code`, `term_sal_tahsili`, `term_shomareh`, `term_active`, `tozihat`) VALUES
+(1, '1400-1401', 1, 0, ''),
+(2, '1400-1401', 2, 0, ''),
+(3, '1400-1401', 3, 0, ''),
+(4, '1401-1402', 1, 1, '');
 
 -- --------------------------------------------------------
 
@@ -261,6 +262,13 @@ CREATE TABLE `term_ostad_dars` (
   `term_code` int(11) NOT NULL,
   `ostad_dars_code` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `term_ostad_dars`
+--
+
+INSERT INTO `term_ostad_dars` (`term_ostad_dars_id`, `term_code`, `ostad_dars_code`) VALUES
+(1, 4, 3);
 
 -- --------------------------------------------------------
 
@@ -422,7 +430,7 @@ ALTER TABLE `ostad-dars`
 -- AUTO_INCREMENT for table `term_ostad_dars`
 --
 ALTER TABLE `term_ostad_dars`
-  MODIFY `term_ostad_dars_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `term_ostad_dars_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user`
