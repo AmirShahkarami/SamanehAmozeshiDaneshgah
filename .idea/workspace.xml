@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a4d1e45-b67d-4f83-8da5-2dabdef6ca0c" name="Changes" comment="&#10;add ajax ostad dars &#10;add 2 database ostad dars table&#10;change admin entekhab vahed">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="2a4d1e45-b67d-4f83-8da5-2dabdef6ca0c" name="Changes" comment="&#10;change admin entekhab vahed&#10;add admin-term-ostad-dars-add.php" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,6 +84,7 @@
       <workItem from="1714809631588" duration="249000" />
       <workItem from="1714811227143" duration="841000" />
       <workItem from="1714841786022" duration="1166000" />
+      <workItem from="1715276860317" duration="706000" />
     </task>
     <task id="LOCAL-00001" summary="second commit">
       <option name="closed" value="true" />
@@ -135,7 +134,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714842278968</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="&#10;change admin entekhab vahed&#10;add admin-term-ostad-dars-add.php">
+      <option name="closed" value="true" />
+      <created>1715276941609</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1715276941609</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -159,6 +166,7 @@
     <MESSAGE value="test from abasfard admin-dashboard.php linr 28" />
     <MESSAGE value="remove test from abasfard admin-dashboard.php linr 28" />
     <MESSAGE value="&#10;add ajax ostad dars &#10;add 2 database ostad dars table&#10;change admin entekhab vahed" />
-    <option name="LAST_COMMIT_MESSAGE" value="&#10;add ajax ostad dars &#10;add 2 database ostad dars table&#10;change admin entekhab vahed" />
+    <MESSAGE value="&#10;change admin entekhab vahed&#10;add admin-term-ostad-dars-add.php" />
+    <option name="LAST_COMMIT_MESSAGE" value="&#10;change admin entekhab vahed&#10;add admin-term-ostad-dars-add.php" />
   </component>
 </project>

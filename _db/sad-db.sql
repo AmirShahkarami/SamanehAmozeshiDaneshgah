@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2024 at 07:45 PM
+-- Generation Time: May 10, 2024 at 10:57 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -268,7 +268,10 @@ CREATE TABLE `term_ostad_dars` (
 --
 
 INSERT INTO `term_ostad_dars` (`term_ostad_dars_id`, `term_code`, `ostad_dars_code`) VALUES
-(1, 4, 3);
+(1, 4, 3),
+(2, 4, 4),
+(3, 3, 1),
+(4, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -430,7 +433,7 @@ ALTER TABLE `ostad-dars`
 -- AUTO_INCREMENT for table `term_ostad_dars`
 --
 ALTER TABLE `term_ostad_dars`
-  MODIFY `term_ostad_dars_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `term_ostad_dars_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user`
