@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2024 at 10:57 AM
+-- Generation Time: May 23, 2024 at 08:52 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -60,6 +60,13 @@ CREATE TABLE `entekhab_vahed` (
   `student_code` int(11) NOT NULL,
   `tozihat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `entekhab_vahed`
+--
+
+INSERT INTO `entekhab_vahed` (`id`, `term_ostad_dars_id`, `student_code`, `tozihat`) VALUES
+(1, 1, 101, '');
 
 -- --------------------------------------------------------
 
@@ -221,7 +228,7 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`student_code`, `student_name`, `student_family`, `student_codemeli`, `student_father`, `student_tel`, `student_tel_family`, `user_code`, `tozihat`) VALUES
-(101, 'محمد ', 'شهبازی', 1810726298, 'امیر', '0916336103', '09166667777', 15, NULL),
+(101, 'رضا', 'شهبازی', 1810726298, 'امیر', '0916336103', '09166667777', 3, NULL),
 (102, 'امیر', 'رضا حسینی', 1810722222, 'محمد', '0916330000', '0916666000', 16, NULL),
 (103, 'حسن', 'میرزایی', 1810720103, 'امیررضا', '0916330103', '09166660103', 17, NULL),
 (104, 'امید', 'رضایی', 1810720104, 'حسینی', '0916330104', '09166660104', 18, NULL),
@@ -403,7 +410,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `entekhab_vahed`
 --
 ALTER TABLE `entekhab_vahed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `hozor_gheyab`

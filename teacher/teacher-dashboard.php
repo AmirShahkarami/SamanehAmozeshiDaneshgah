@@ -21,8 +21,23 @@ if (!(isset($_SESSION["user_logged"]))) {
 <div class="container">
     <!-- Content here -->
     <?php
+    include("../db.php");
+    $conn = (new my_database())->connection_database;
 
     $user = $_SESSION["user_logged"];
+
+    $user_code = $user["user_code"];
+    $sql_teacher = "SELECT * FROM `ostad` WHERE `user_code` = $user_code";
+    $result_teacher = $conn->query($sql_teacher);
+    if ($result_teacher->num_rows == 1) {
+        $teacher = $result_teacher->fetch_assoc();
+        //`ostad_name`,`ostad_family`
+        $teacher_Fullname =  "استاد:" . $teacher["ostad_name"] . ' ' . $teacher["ostad_family"];
+    }
+
+
+
+
     if ($user["role"] == "student") {
         ?>
         <div class="alert alert-danger" role="alert">
@@ -38,6 +53,10 @@ if (!(isset($_SESSION["user_logged"]))) {
             <a href="../logout.php" class="btn btn-primary">خروج</a>
         </div>
 
+        <h2>
+            <?php echo $teacher_Fullname; ?>
+        </h2>
+
         <table class="table table-striped">
             <thead>
             <tr>
@@ -52,8 +71,6 @@ if (!(isset($_SESSION["user_logged"]))) {
 
             <?php
 
-            include("../db.php");
-            $conn = (new my_database())->connection_database;
 
             $sql = "SELECT `student_code`,`student_name`,`student_family`,`student_codemeli` FROM `student` ";
             $result = $conn->query($sql);
