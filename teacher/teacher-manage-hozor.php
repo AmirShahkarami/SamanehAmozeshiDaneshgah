@@ -32,13 +32,11 @@ if (!(isset($_SESSION["user_logged"]))) {
     if ($result_teacher->num_rows == 1) {
         $teacher = $result_teacher->fetch_assoc();
         //`ostad_name`,`ostad_family`
-        $teacher_Fullname =  "استاد:" . $teacher["ostad_name"] . ' ' . $teacher["ostad_family"];
+        $teacher_Fullname = "استاد:" . $teacher["ostad_name"] . ' ' . $teacher["ostad_family"];
     }
 
 
-
-
-    if ($user["role"] == "student") {
+    if ($user["role"] != "teacher") {
         ?>
         <div class="alert alert-danger" role="alert">
             شما مجوز ورود به این صفحه را ندارید .
@@ -55,10 +53,9 @@ if (!(isset($_SESSION["user_logged"]))) {
         <h2>
             <?php echo $teacher_Fullname; ?>
         </h2>
-    <div class="mb-3 mt-3">
-    <a href="teacher-manage-hozor.php" class="btn btn-primary">مدیریت حضور و غیاب</a>
-    <a href="user-managment-adduser.php" class="btn btn-primary">مدیریت نمرات</a>
-    </div>
+        <div class="mb-3 mt-3">
+            <a href="teacher-dashboard.php" class="btn btn-primary">داشبورد استاد</a>
+        </div>
 
         <table class="table table-striped">
             <thead>

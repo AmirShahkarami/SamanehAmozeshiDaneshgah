@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2024 at 08:52 PM
+-- Generation Time: Jul 10, 2024 at 08:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -82,6 +82,16 @@ CREATE TABLE `hozor_gheyab` (
   `movajah` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `hozor_gheyab`
+--
+
+INSERT INTO `hozor_gheyab` (`hozor_gheyab_id`, `entekhab_vahed_code`, `jaleseh_id`, `vazeiat_hozor`, `movajah`) VALUES
+(4, 1, 1, 'حاضر', ''),
+(5, 1, 2, 'حاضر', ''),
+(6, 1, 3, 'غایب', ''),
+(7, 1, 4, 'حاضر', '');
+
 -- --------------------------------------------------------
 
 --
@@ -93,10 +103,20 @@ CREATE TABLE `jaleseh` (
   `term_ostad_dars_id` int(11) NOT NULL,
   `jaleseh_roze_hafteh` varchar(50) NOT NULL,
   `jaleseh_saat` varchar(50) NOT NULL,
-  `jaleseh_tarikh` int(11) NOT NULL,
+  `jaleseh_tarikh` date NOT NULL,
   `jaleseh_shomareh` int(11) NOT NULL,
   `tozihat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `jaleseh`
+--
+
+INSERT INTO `jaleseh` (`jaleseh_code`, `term_ostad_dars_id`, `jaleseh_roze_hafteh`, `jaleseh_saat`, `jaleseh_tarikh`, `jaleseh_shomareh`, `tozihat`) VALUES
+(1, 1, 'شنبه', '8:00', '2024-01-06', 1, ''),
+(2, 1, 'شنبه', '8:00', '2024-01-13', 2, ''),
+(3, 1, 'شنبه', '8:00', '2024-01-20', 3, ''),
+(4, 1, 'شنبه', '8:00', '2024-01-27', 4, '');
 
 -- --------------------------------------------------------
 
@@ -157,15 +177,16 @@ CREATE TABLE `ostad` (
 INSERT INTO `ostad` (`ostad_code`, `ostad_name`, `ostad_family`, `ostad_madrak`, `ostad_reshtah`, `user_code`, `tozihat`) VALUES
 (1, 'علی', 'مهرنیا', 'فوق لیسانس', 'کامپیوتر طراحی سایت ', 4, ''),
 (2, 'ناصر ', 'شیرازی', 'لیسانس', 'ریاضی', 11, ''),
-(3, 'رضا ', 'علیزاده', 'فوق لیسانس', 'فارسی', 19, '');
+(3, 'رضا ', 'علیزاده', 'فوق لیسانس', 'فارسی', 19, ''),
+(4, 'مجتبی', 'ناصری', 'فوق لیسانس', 'ریاضی', 21, '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ostad-dars`
+-- Table structure for table `ostad_dars`
 --
 
-CREATE TABLE `ostad-dars` (
+CREATE TABLE `ostad_dars` (
   `id` int(11) NOT NULL,
   `ostad_code` int(11) NOT NULL,
   `dars_code` int(11) NOT NULL,
@@ -173,14 +194,15 @@ CREATE TABLE `ostad-dars` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `ostad-dars`
+-- Dumping data for table `ostad_dars`
 --
 
-INSERT INTO `ostad-dars` (`id`, `ostad_code`, `dars_code`, `tozihat`) VALUES
+INSERT INTO `ostad_dars` (`id`, `ostad_code`, `dars_code`, `tozihat`) VALUES
 (1, 3, 4, ''),
 (2, 3, 5, ''),
 (3, 1, 7, ''),
-(4, 1, 6, '');
+(4, 1, 6, ''),
+(5, 4, 2, '');
 
 -- --------------------------------------------------------
 
@@ -278,7 +300,8 @@ INSERT INTO `term_ostad_dars` (`term_ostad_dars_id`, `term_code`, `ostad_dars_co
 (1, 4, 3),
 (2, 4, 4),
 (3, 3, 1),
-(4, 2, 3);
+(4, 2, 3),
+(5, 4, 5);
 
 -- --------------------------------------------------------
 
@@ -306,7 +329,10 @@ INSERT INTO `user` (`user_code`, `username`, `password`, `role`) VALUES
 (16, 's2', '2', 'student'),
 (17, 's3', '3', 'student'),
 (18, 's4', '4', 'student'),
-(19, 't5', '5', 'teacher');
+(19, 't5', '555', 'teacher'),
+(20, 'tch2', 't2', 'teacher'),
+(21, 'tch2', 't2', 'teacher'),
+(22, 'tch2', 't2', 'teacher');
 
 --
 -- Indexes for dumped tables
@@ -362,9 +388,9 @@ ALTER TABLE `ostad`
   ADD KEY `user_code` (`user_code`);
 
 --
--- Indexes for table `ostad-dars`
+-- Indexes for table `ostad_dars`
 --
-ALTER TABLE `ostad-dars`
+ALTER TABLE `ostad_dars`
   ADD PRIMARY KEY (`id`),
   ADD KEY `dars_code` (`dars_code`),
   ADD KEY `ostad_code` (`ostad_code`);
@@ -416,13 +442,13 @@ ALTER TABLE `entekhab_vahed`
 -- AUTO_INCREMENT for table `hozor_gheyab`
 --
 ALTER TABLE `hozor_gheyab`
-  MODIFY `hozor_gheyab_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `hozor_gheyab_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `jaleseh`
 --
 ALTER TABLE `jaleseh`
-  MODIFY `jaleseh_code` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `jaleseh_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `nomarat`
@@ -431,22 +457,22 @@ ALTER TABLE `nomarat`
   MODIFY `nomarat_code` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `ostad-dars`
+-- AUTO_INCREMENT for table `ostad_dars`
 --
-ALTER TABLE `ostad-dars`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `ostad_dars`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `term_ostad_dars`
 --
 ALTER TABLE `term_ostad_dars`
-  MODIFY `term_ostad_dars_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `term_ostad_dars_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `user_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables
@@ -485,11 +511,11 @@ ALTER TABLE `ostad`
   ADD CONSTRAINT `ostad_ibfk_1` FOREIGN KEY (`user_code`) REFERENCES `user` (`user_code`);
 
 --
--- Constraints for table `ostad-dars`
+-- Constraints for table `ostad_dars`
 --
-ALTER TABLE `ostad-dars`
-  ADD CONSTRAINT `ostad-dars_ibfk_1` FOREIGN KEY (`dars_code`) REFERENCES `dars` (`dars_code`),
-  ADD CONSTRAINT `ostad-dars_ibfk_2` FOREIGN KEY (`ostad_code`) REFERENCES `ostad` (`ostad_code`);
+ALTER TABLE `ostad_dars`
+  ADD CONSTRAINT `ostad_dars_ibfk_1` FOREIGN KEY (`dars_code`) REFERENCES `dars` (`dars_code`),
+  ADD CONSTRAINT `ostad_dars_ibfk_2` FOREIGN KEY (`ostad_code`) REFERENCES `ostad` (`ostad_code`);
 
 --
 -- Constraints for table `student`
@@ -502,7 +528,7 @@ ALTER TABLE `student`
 --
 ALTER TABLE `term_ostad_dars`
   ADD CONSTRAINT `term_ostad_dars_ibfk_3` FOREIGN KEY (`term_code`) REFERENCES `term` (`term_code`),
-  ADD CONSTRAINT `term_ostad_dars_ibfk_4` FOREIGN KEY (`ostad_dars_code`) REFERENCES `ostad-dars` (`id`);
+  ADD CONSTRAINT `term_ostad_dars_ibfk_4` FOREIGN KEY (`ostad_dars_code`) REFERENCES `ostad_dars` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
