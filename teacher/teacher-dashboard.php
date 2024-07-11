@@ -21,8 +21,29 @@ if (!(isset($_SESSION["user_logged"]))) {
 <div class="container">
     <!-- Content here -->
     <?php
+    include("../db.php");
+    $conn = (new my_database())->connection_database;
 
     $user = $_SESSION["user_logged"];
+
+    $user_code = $user["user_code"];
+    $sql_teacher = "SELECT * FROM `ostad` WHERE `user_code` = $user_code";
+    $result_teacher = $conn->query($sql_teacher);
+
+    $ostad_code = -1;
+    if ($result_teacher->num_rows == 1) {
+        $teacher = $result_teacher->fetch_assoc();
+        //`ostad_name`,`ostad_family`
+        $teacher_Fullname =  "استاد:" . $teacher["ostad_name"] . ' ' . $teacher["ostad_family"];
+        $ostad_code = $teacher["ostad_code"];
+    }
+    else{
+        echo "اطلاعات نامعتبر";
+    }
+
+
+
+
     if ($user["role"] == "student") {
         ?>
         <div class="alert alert-danger" role="alert">
@@ -34,71 +55,58 @@ if (!(isset($_SESSION["user_logged"]))) {
 
         ?>
         <div class="mb-3 mt-3">
-            <a href="user-managment-adduser.php" class="btn btn-primary">اضافه کردن کاربر جدید</a>
             <a href="../logout.php" class="btn btn-primary">خروج</a>
         </div>
 
+        <h2>
+            <?php echo $teacher_Fullname; ?>
+        </h2>
+    <div class="mb-3 mt-3">
+    <a href="teacher-manage-hozor.php" class="btn btn-primary">مدیریت حضور و غیاب</a>
+    <a href="user-managment-adduser.php" class="btn btn-primary">مدیریت نمرات</a>
+    </div>
+
+        <h2>لیست دروس ارائه شده</h2>
         <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col">code</th>
-                <th scope="col">username</th>
-                <th scope="col">password</th>
-                <th scope="col">role</th>
-                <th scope="col">عملیات</th>
+                <th scope="col">درس</th>
             </tr>
             </thead>
             <tbody>
 
             <?php
 
-            include("../db.php");
-            $conn = (new my_database())->connection_database;
 
-            $sql = "SELECT `student_code`,`student_name`,`student_family`,`student_codemeli` FROM `student` ";
+            $sql = "SELECT tod.term_ostad_dars_id ,o.ostad_code, o.ostad_name,o.ostad_family,d.dars_name 
+                         FROM `term_ostad_dars` as tod 
+                         INNER JOIN ostad_dars as od on tod.ostad_dars_code = od.id 
+                         INNER JOIN ostad as o on od.ostad_code = o.ostad_code 
+                         INNER JOIN dars as d on od.dars_code = d.dars_code 
+                         WHERE o.ostad_code = $ostad_code;";
+
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    $student_code = $row["student_code"];
-                    $student_name = $row["student_name"];
-                    $student_family = $row["student_family"];
-                    $student_codemeli = $row["student_codemeli"];
-                    echo " <tr>
-        <td >" . $row["student_code"] . "</td>
-        <td>" . $row["student_name"] . "</td>
-        <td>" . $row["student_family"] . "</td>
-        <td>" . $row["student_codemeli"] . "</td>
+                    ?>
+
+                     <tr>
         <td>
-        <a href=\"user-managment-update.php?user_code=$student_code\">
-        بروزرسانی
-        </a>
-        |
-        <a href=\"user-managment-delete.php?user_code=$student_code\" class=''>
-        حذف
-        </a>
-</td>
-    </tr>";
-                    //echo "user_code: " . $row["user_code"]. " - username:<span style='font-size: 24px'> " . $row["username"]. "</span>  password: <span style='font-size: 24px'>" . $row["password"]. "</span>  role: <span style='font-size: 24px'>" . $row["role"]. "</span><br>";
-
+            <a href="teacher-manage-hozor.php?term_ostad_dars_id=<?php echo $row["term_ostad_dars_id"] ?>" class="btn btn-primary">
+                <?php
+                echo $row["dars_name"];
+                ?>
+            </a>
+        </td>
+    </tr>
+         <?php
                 }
-            } else {
-                echo "0 results";
-            }
-
-
             ?>
 
             </tbody>
         </table>
 
-        <form action="" method="get">
-            <div class="mb-3 mt-3">
-                <label for="username" class="form-label">نام کاربری</label>
-                <input type="search" class="form-control" id="username" placeholder="جستجوی نام کاربری" name="username"
-                       value="">
-            </div>
-        </form>
         <?php
     }
     ?>

@@ -43,9 +43,13 @@ if ($result_student->num_rows == 1) {
 </head>
 <body>
 <div class="container">
+<<<<<<< HEAD
     <div class="mb-3 mt-3">
         <a href="../logout.php" class="btn btn-primary">خروج</a>
     </div>
+=======
+
+>>>>>>> origin/main
     <h1><?php echo $student_Fullname; ?></h1>
     <a href="student-entekhabvahed.php"> انتخاب واحد</a>
 

@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a4d1e45-b67d-4f83-8da5-2dabdef6ca0c" name="Changes" comment="remove test from abasfard admin-dashboard.php linr 28">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="2a4d1e45-b67d-4f83-8da5-2dabdef6ca0c" name="Changes" comment="&#10;change admin entekhab vahed&#10;rename and change  admin-term-ostad-dars-add.php&#10;to&#10;ajax-term-ostad-dars-add.php" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,9 +27,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2dSFS51qXt1aIGN3TEBwtsqMI3q" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -40,17 +38,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\sad\teacher" />
@@ -84,6 +83,9 @@
       <workItem from="1714748623253" duration="5458000" />
       <workItem from="1714809631588" duration="249000" />
       <workItem from="1714811227143" duration="841000" />
+      <workItem from="1714841786022" duration="1166000" />
+      <workItem from="1715276860317" duration="706000" />
+      <workItem from="1715331567596" duration="483000" />
     </task>
     <task id="LOCAL-00001" summary="second commit">
       <option name="closed" value="true" />
@@ -125,11 +127,46 @@
       <option name="project" value="LOCAL" />
       <updated>1714811534842</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="&#10;add ajax ostad dars &#10;add 2 database ostad dars table&#10;change admin entekhab vahed">
+      <option name="closed" value="true" />
+      <created>1714842278968</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1714842278968</updated>
+    </task>
+    <task id="LOCAL-00007" summary="&#10;change admin entekhab vahed&#10;add admin-term-ostad-dars-add.php">
+      <option name="closed" value="true" />
+      <created>1715276941609</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1715276941609</updated>
+    </task>
+    <task id="LOCAL-00008" summary="&#10;change admin entekhab vahed&#10;rename and change  admin-term-ostad-dars-add.php&#10;to&#10;ajax-term-ostad-dars-add.php">
+      <option name="closed" value="true" />
+      <created>1715331618494</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1715331618494</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="second commit" />
@@ -137,6 +174,9 @@
     <MESSAGE value="4" />
     <MESSAGE value="test from abasfard admin-dashboard.php linr 28" />
     <MESSAGE value="remove test from abasfard admin-dashboard.php linr 28" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove test from abasfard admin-dashboard.php linr 28" />
+    <MESSAGE value="&#10;add ajax ostad dars &#10;add 2 database ostad dars table&#10;change admin entekhab vahed" />
+    <MESSAGE value="&#10;change admin entekhab vahed&#10;add admin-term-ostad-dars-add.php" />
+    <MESSAGE value="&#10;change admin entekhab vahed&#10;rename and change  admin-term-ostad-dars-add.php&#10;to&#10;ajax-term-ostad-dars-add.php" />
+    <option name="LAST_COMMIT_MESSAGE" value="&#10;change admin entekhab vahed&#10;rename and change  admin-term-ostad-dars-add.php&#10;to&#10;ajax-term-ostad-dars-add.php" />
   </component>
 </project>
