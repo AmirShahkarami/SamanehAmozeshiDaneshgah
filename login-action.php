@@ -43,7 +43,7 @@ session_start();
             $_SESSION["user_logged"] = $result->fetch_assoc();
             $user = $_SESSION["user_logged"];
             if ($user["role"] == "student") {
-                header("location:student/student-hozor.php");
+                header("location:student/student-dashboard.php");
             } else if ($user["role"] == "teacher") {
                 header("location:teacher/teacher-dashboard.php");
             } else if ($user["role"] == "admin") {
