@@ -44,6 +44,45 @@ if (!(isset($_SESSION["user_logged"]))) {
         </div>
         <?php
     } else {
+        $term_ostad_dars_id = $_GET["term_ostad_dars_id"];
+
+        $students=[];
+        $jalasat=[];
+
+        //  دریافت لیست دانشجویان
+    $sql_teacher_students = " SELECT ev.term_ostad_dars_id,st.student_name,st.student_family,st.student_codemeli 
+                     FROM `entekhab_vahed` as ev 
+                     INNER JOIN student as st on st.student_code = ev.student_code 
+                     WHERE `term_ostad_dars_id` = $term_ostad_dars_id;";
+    $result_teacher_students = $conn->query($sql_teacher_students);
+    if ($result_teacher_students->num_rows > 0) {
+        while ($row_teacher_student = $result_teacher->fetch_assoc()){
+            $students[]=$row_teacher_student;
+        }
+
+
+        // جلسات  بر اساس ورودی: کد ترم-استاد-درس
+               $sql_jalasat="SELECT * FROM `jaleseh` WHERE `term_ostad_dars_id` = (
+                SELECT ev.term_ostad_dars_id
+                FROM `entekhab_vahed` as ev
+                inner JOIN term_ostad_dars as tod on ev.term_ostad_dars_id = tod.term_ostad_dars_id
+                inner join ostad_dars as od on tod.ostad_dars_code = od.id
+                inner join ostad as o on od.ostad_code = o.ostad_code
+                WHERE tod.`term_ostad_dars_id` = $term_ostad_dars_id);";
+
+               $result_jalasat = $conn->query($sql_jalasat);
+               if($result_jalasat->num_rows > 0 ){
+                   while ($row_jalasat = $result_jalasat->fetch_assoc()){
+                       $jalasat[] = $row_jalasat;
+                   }
+                   }
+               }
+               else{
+                   echo "جلسه ای برای این درس ثبت نشده است.";
+               }
+
+?>
+    }
 
         ?>
         <div class="mb-3 mt-3">
@@ -57,13 +96,24 @@ if (!(isset($_SESSION["user_logged"]))) {
             <a href="teacher-dashboard.php" class="btn btn-primary">داشبورد استاد</a>
         </div>
 
+        <h2 style="color: red">
+            درس:
+            <?php echo  "dars" ?>
+        </h2>
+        <h3>حضور و غیاب دانشجویان</h3>
         <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col">code</th>
-                <th scope="col">username</th>
-                <th scope="col">password</th>
-                <th scope="col">role</th>
+                <th scope="col">کد ملی </th>
+                <th scope="col">نام </th>
+                <th scope="col">نام خانوادگی</th>
+
+                لیست جلسات ...
+<?php
+$jalasat_count = $jalasat.count();
+
+
+                <th scope="col"></th>
                 <th scope="col">عملیات</th>
             </tr>
             </thead>
