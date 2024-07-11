@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 10, 2024 at 08:30 AM
+-- Generation Time: Jul 11, 2024 at 11:01 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -66,7 +66,9 @@ CREATE TABLE `entekhab_vahed` (
 --
 
 INSERT INTO `entekhab_vahed` (`id`, `term_ostad_dars_id`, `student_code`, `tozihat`) VALUES
-(1, 1, 101, '');
+(1, 1, 101, ''),
+(2, 1, 104, ''),
+(3, 1, 102, '');
 
 -- --------------------------------------------------------
 
@@ -436,7 +438,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `entekhab_vahed`
 --
 ALTER TABLE `entekhab_vahed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `hozor_gheyab`
