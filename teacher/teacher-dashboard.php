@@ -4,7 +4,19 @@ session_start();
 if (!(isset($_SESSION["user_logged"]))) {
     header("location:../login.html");
 }
+else{
 
+$user = $_SESSION["user_logged"];
+
+if ($user["role"] == "student") {
+    ?>
+    <div class="alert alert-danger" role="alert">
+        شما مجوز ورود به این صفحه را ندارید .
+        <a href="../login.html" class="alert-link">صفحه ی ورود</a>
+    </div>
+    <?php
+}
+else {
 ?>
 <!doctype html>
 <html lang="en">
@@ -24,8 +36,6 @@ if (!(isset($_SESSION["user_logged"]))) {
     include("../db.php");
     $conn = (new my_database())->connection_database;
 
-    $user = $_SESSION["user_logged"];
-
     $user_code = $user["user_code"];
     $sql_teacher = "SELECT * FROM `ostad` WHERE `user_code` = $user_code";
     $result_teacher = $conn->query($sql_teacher);
@@ -41,78 +51,43 @@ if (!(isset($_SESSION["user_logged"]))) {
         echo "اطلاعات نامعتبر";
     }
 
-
-
-
-    if ($user["role"] == "student") {
-        ?>
-        <div class="alert alert-danger" role="alert">
-            شما مجوز ورود به این صفحه را ندارید .
-            <a href="../login.html" class="alert-link">صفحه ی ورود</a>
-        </div>
-        <?php
-    } else {
-
+    if($ostad_code != -1){
         ?>
         <div class="mb-3 mt-3">
-            <a href="../logout.php" class="btn btn-primary">خروج</a>
+            <a href="../logout.php"class="btn btn-danger">خروج</a>
         </div>
 
         <h2>
             <?php echo $teacher_Fullname; ?>
         </h2>
-    <div class="mb-3 mt-3">
-    <a href="teacher-manage-hozor.php" class="btn btn-primary">مدیریت حضور و غیاب</a>
-    <a href="user-managment-adduser.php" class="btn btn-primary">مدیریت نمرات</a>
-    </div>
-
-        <h2>لیست دروس ارائه شده</h2>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">درس</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <?php
+        <div class="mb-3 mt-3">
+            <a href="teacher-manage-hozor.php" class="btn btn-primary">مدیریت حضور و غیاب</a>
+            <a href="user-managment-adduser.php" class="btn btn-primary">مدیریت نمرات</a>
+        </div>
 
 
-            $sql = "SELECT tod.term_ostad_dars_id ,o.ostad_code, o.ostad_name,o.ostad_family,d.dars_name 
-                         FROM `term_ostad_dars` as tod 
-                         INNER JOIN ostad_dars as od on tod.ostad_dars_code = od.id 
-                         INNER JOIN ostad as o on od.ostad_code = o.ostad_code 
-                         INNER JOIN dars as d on od.dars_code = d.dars_code 
-                         WHERE o.ostad_code = $ostad_code;";
 
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    ?>
-
-                     <tr>
-        <td>
-            <a href="teacher-manage-hozor.php?term_ostad_dars_id=<?php echo $row["term_ostad_dars_id"] ?>" class="btn btn-primary">
-                <?php
-                echo $row["dars_name"];
-                ?>
-            </a>
-        </td>
-    </tr>
-         <?php
-                }
-            ?>
-
-            </tbody>
-        </table>
-
-        <?php
+    <?php
     }
     ?>
 
-</div>
+        </div>
 
-<script src="../assets/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+        <script src="../assets/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+        </body>
+        </html>
+
+    <?php
+    }
+
+}
+?>
+
+
+
+
+
+
+
+
+

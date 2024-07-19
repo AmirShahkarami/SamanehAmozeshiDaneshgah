@@ -78,12 +78,12 @@ if (!(isset($_SESSION["user_logged"]))) {
 
         ?>
         <div class="mb-3 mt-3">
-            <a href="../logout.php" class="btn btn-primary">خروج</a>
+            <a href="../logout.php"class="btn btn-danger">خروج</a>
         </div>
 
 
         <h2>
-            لیست  دروس انخاب  شده -
+            لیست  دروس انتخاب  شده -
             <?php echo $student_Fullname; ?>
         </h2>
         <table class="table table-striped">
@@ -102,8 +102,8 @@ if (!(isset($_SESSION["user_logged"]))) {
             $sql_dros_term_active = "select t3.`term_ostad_dars_id`,t3.`term_code`,t3.`ostad_code`,t3.`dars_code`,t3.`term_sal_tahsili` ,t3.term_shomareh,t3.ostad_name ,t3.ostad_family ,t6.dars_name 
                             from (select t3.`term_ostad_dars_id`,t3.`term_code`,t3.term_shomareh,t3.`ostad_code`,t3.`dars_code`,t3.`term_sal_tahsili` ,t4.ostad_name ,t4.ostad_family 
                                         from (select t1.`term_ostad_dars_id`,t1.`term_code`,t1.`ostad_code`,t1.`dars_code`,t2.`term_sal_tahsili`,t2.term_shomareh 
-                                              from (SELECT `term_ostad_dars`.`term_ostad_dars_id`,`term_ostad_dars`.`term_code` , `ostad-dars`.`ostad_code` ,`ostad-dars`.`dars_code` 
-                                                    FROM `term_ostad_dars` INNER JOIN `ostad-dars` on `term_ostad_dars`.`ostad_dars_code` = `ostad-dars`.`id`) 
+                                              from (SELECT `term_ostad_dars`.`term_ostad_dars_id`,`term_ostad_dars`.`term_code` , `ostad_dars`.`ostad_code` ,`ostad_dars`.`dars_code` 
+                                                    FROM `term_ostad_dars` INNER JOIN `ostad_dars` on `term_ostad_dars`.`ostad_dars_code` = `ostad_dars`.`id`) 
                                                   AS t1 join `term` as t2 on t1.`term_code` = t2.`term_code`) as t3 join `ostad` as t4 on t3.`ostad_code` = t4.ostad_code) 
                                                     as t3 join `dars` as t6 on t3.`dars_code` = t6.dars_code
                                                     WHERE t3.`term_code` =(SELECT `term_code` FROM `term` WHERE `term_active` = 1);";
@@ -143,12 +143,7 @@ if (!(isset($_SESSION["user_logged"]))) {
                 echo " ثبت نشده!";
             }
             ?>
-            <td>
-                <form id="form_term_ostad_dars_add" action="student-entekhabvahed-action.php" method="post">
-                    <input type="hidden" name="ary_term_ostad_dars_id" id="ary_term_ostad_dars_id" value="">
-                    <input type="submit" class="btn btn-primary d-block" value="ثبت">
-                </form>
-            </td>
+
             </tr>
             </tbody>
         </table>

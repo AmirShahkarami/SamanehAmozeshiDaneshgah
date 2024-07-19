@@ -48,8 +48,10 @@ if (!(isset($_SESSION["user_logged"]))) {
 
         ?>
         <div class="mb-3 mt-3">
-            <a href="../logout.php" class="btn btn-primary">خروج</a>
+            <a href="../logout.php"class="btn btn-danger">خروج</a>
+            <a href="student-dashboard.php" class="btn btn-primary">داشبورد</a>
         </div>
+
 
 
         <h2>

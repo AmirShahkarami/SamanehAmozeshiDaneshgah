@@ -34,7 +34,7 @@ if ($user["role"] != "admin") {
 
 <div class="container">
     <div class="mb-3 mt-3">
-        <a href="../logout.php" class="btn btn-primary">خروج</a>
+        <a href="../logout.php"class="btn btn-danger">خروج</a>
     </div>
     <h1>داشبورد مدیریت سامانه</h1>
     <h2>

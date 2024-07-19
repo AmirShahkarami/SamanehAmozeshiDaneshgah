@@ -1,0 +1,27 @@
+{
+  "jalasat_hozor":
+  {"tod":1 ,
+  "students":
+  [
+    {"student_code":101,
+      "jalasat":
+      [
+        {"jalesehcode":1,"value":"off"},
+        {"jalesehcode":2,"value":"off"},
+        {"jalesehcode":3,"value":"off"},
+        {"jalesehcode":4,"value":"off"}
+      ]
+    }
+  , {"student_code":102,
+      "jalasat":
+      [
+        {"jalesehcode":1,"value":"off"},
+        {"jalesehcode":2,"value":"on"},
+        {"jalesehcode":3,"value":"off"},
+        {"jalesehcode":4,"value":"off"}
+      ]
+    }
+  ]
+}
+}
+

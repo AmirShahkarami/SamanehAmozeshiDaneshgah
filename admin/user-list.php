@@ -36,7 +36,7 @@ else{
     <div class="mb-3 mt-3">
         <a href="admin-dashboard.php" class="btn btn-primary">داشبورد مدیریت</a>
         <a href="user-managment-adduser.php" class="btn btn-primary">اضافه کردن کاربر جدید</a>
-        <a href="../logout.php" class="btn btn-primary">خروج</a>
+        <a href="../logout.php"class="btn btn-danger">خروج</a>
     </div>
 
     <table class="table table-striped">
