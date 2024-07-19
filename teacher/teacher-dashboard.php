@@ -62,7 +62,7 @@ else {
         </h2>
         <div class="mb-3 mt-3">
             <a href="teacher-manage-hozor.php" class="btn btn-primary">مدیریت حضور و غیاب</a>
-            <a href="user-managment-adduser.php" class="btn btn-primary">مدیریت نمرات</a>
+            <a href="teacher-manage-mark.php" class="btn btn-primary">مدیریت نمرات</a>
         </div>
 
 

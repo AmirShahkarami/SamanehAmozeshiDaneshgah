@@ -43,11 +43,11 @@ if ($user["role"] == "student") {
         $jalasat_hozor_students_data = json_decode($jalasat_hozor_students_data_json);
         if (isset($jalasat_hozor_students_data->jalasat_hozor)) {
             $students = $jalasat_hozor_students_data->jalasat_hozor->students;
-            var_dump($jalasat_hozor_students_data->jalasat_hozor);
+            //var_dump($jalasat_hozor_students_data->jalasat_hozor);
         }
-        exit("47");
+        //exit("47");
         foreach ($students as $student) {
-            echo "<h2>" . $student->student_code . "</h2>";
+            //echo "<h2>" . $student->student_code . "</h2>";
             foreach ($student->jalasat as $jalaseh) {
                 $sql_entekhabvahed = "SELECT `id` FROM `entekhab_vahed` 
                                         WHERE `term_ostad_dars_id` = $term_ostad_dars_id 
