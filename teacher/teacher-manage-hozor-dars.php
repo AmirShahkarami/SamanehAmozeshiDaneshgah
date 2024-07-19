@@ -158,7 +158,7 @@ if ($result_teacher->num_rows == 1) {
                             <input class="form-check-input jaleseh-check jalasat-studentcode-<?php echo $student_code ?>"
                                    type="checkbox" role="switch"
                                    id="<?php echo $control_name_id ?>" name="<?php echo $control_name_id ?>"
-                                   value="off" title="<?php echo $jaleseh["jaleseh_tarikh"] ?>"
+                                   value="false" title="<?php echo $jaleseh["jaleseh_tarikh"] ?>"
                                    datajalasehcode="<?php echo $jaleseh["jaleseh_code"] ?>"/>
                             <label class="form-check-label" for="<?php echo $control_name_id ?>"
                                    title="<?php echo $jaleseh["jaleseh_tarikh"] ?>">حاضر</label>
@@ -181,6 +181,8 @@ if ($result_teacher->num_rows == 1) {
         <input type="hidden" name="term_ostad_dars_id" id="term_ostad_dars_id"
                value="<?php echo $term_ostad_dars_id ?>">
         <input type="hidden" name="jalasat_hozor_students_data" value="" id="jalasat_hozor_students_data">
+        <input type="hidden" name="dars_name" value="<?php echo $dars_name; ?>" id="dars_name">
+
         <input type="submit" value="ثبت">
     </form>
     <?php
@@ -201,10 +203,10 @@ if ($result_teacher->num_rows == 1) {
 
         $(document).ready(function () {
             $(".jaleseh-check").click(function () {
-                if ($(this).val() == "on")
-                    $(this).val("off");
+                if ($(this).val() == "true")
+                    $(this).val("false");
                 else
-                    $(this).val("on");
+                    $(this).val("true");
 
                 //console.log($(this).val());
                 jalasat_json = "{ \"jalasat_hozor\": {\"tod\":";
@@ -213,16 +215,15 @@ if ($result_teacher->num_rows == 1) {
                 jalasat_json += ",\"students\":[";
 
                 counter_students = 0;
-                if(student_code_ary.length > 0) {
+                if (student_code_ary.length > 0) {
                     for (n = 0; n < student_code_ary.length; n++) {
                         jalasat_studentcode = document.getElementsByClassName("jalasat-studentcode-" + student_code_ary[n]);
                         //console.log("jalasat_studentcode[0]  = " + jalasat_studentcode[0])
                         //console.log("jalasat_studentcode[0].getAttribute('datajalasehcode')  = " + jalasat_studentcode[0].getAttribute('datajalasehcode'))
-                        student_json="";
-                        if(counter_students == 0){
+                        student_json = "";
+                        if (counter_students == 0) {
                             student_json = "{\"student_code\":" + student_code_ary[0] + ", \"jalasat\":[";
-                        }
-                        else{
+                        } else {
                             student_json += "," + "{\"student_code\":" + student_code_ary[n] + ", \"jalasat\":[";
                         }
                         counter_students++;
