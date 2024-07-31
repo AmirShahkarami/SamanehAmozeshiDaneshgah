@@ -213,7 +213,7 @@ if (!(isset($_SESSION["user_logged"]))) {
                 //data: "fname=" + fname + '&lname=' + lname,
                 data: "data=" + str,
                 success: function (result) {
-                    //console.log(data2);
+                    console.log(result);
                     //$("#get_data_from_ajax").html(result)
                     $("#select_dros_ostad").html(result)
                 }

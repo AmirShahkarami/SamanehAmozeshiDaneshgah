@@ -1,11 +1,11 @@
 <?php
 if (isset($_GET["data"])) {
-    $code_osat = $_GET["data"];
+    $code_ostad = $_GET["data"];
 
     include("../db.php");
     $conn = (new my_database())->connection_database;
 
-    $sql_dros_ostad = "SELECT * FROM `dars` WHERE dars_code in (SELECT dars_code FROM `ostad-dars` WHERE `ostad_code` = $code_osat)";
+    $sql_dros_ostad = "SELECT * FROM `dars` WHERE dars_code in (SELECT dars_code FROM `ostad_dars` WHERE `ostad_code` = $code_ostad)";
     $result_dars = $conn->query($sql_dros_ostad);
 
     if ($result_dars->num_rows > 0) {

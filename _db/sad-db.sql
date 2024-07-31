@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2024 at 11:01 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Jul 31, 2024 at 03:20 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,7 +33,7 @@ CREATE TABLE `dars` (
   `dars_vahed` int(11) NOT NULL,
   `dars_zarfeiat` int(11) NOT NULL,
   `tozihat` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `dars`
@@ -59,7 +59,7 @@ CREATE TABLE `entekhab_vahed` (
   `term_ostad_dars_id` int(11) NOT NULL,
   `student_code` int(11) NOT NULL,
   `tozihat` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `entekhab_vahed`
@@ -67,8 +67,9 @@ CREATE TABLE `entekhab_vahed` (
 
 INSERT INTO `entekhab_vahed` (`id`, `term_ostad_dars_id`, `student_code`, `tozihat`) VALUES
 (1, 1, 101, ''),
-(2, 1, 104, ''),
-(3, 1, 102, '');
+(2, 2, 101, ''),
+(3, 5, 101, ''),
+(10, 1, 104, '');
 
 -- --------------------------------------------------------
 
@@ -82,17 +83,21 @@ CREATE TABLE `hozor_gheyab` (
   `jaleseh_id` int(11) NOT NULL,
   `vazeiat_hozor` varchar(50) NOT NULL,
   `movajah` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `hozor_gheyab`
 --
 
 INSERT INTO `hozor_gheyab` (`hozor_gheyab_id`, `entekhab_vahed_code`, `jaleseh_id`, `vazeiat_hozor`, `movajah`) VALUES
-(4, 1, 1, 'حاضر', ''),
-(5, 1, 2, 'حاضر', ''),
-(6, 1, 3, 'غایب', ''),
-(7, 1, 4, 'حاضر', '');
+(4, 1, 1, 'true', ''),
+(5, 1, 2, 'false', ''),
+(6, 1, 3, 'true', ''),
+(7, 1, 4, 'false', ''),
+(8, 10, 1, 'false', ''),
+(9, 10, 2, 'true', ''),
+(10, 10, 3, 'true', ''),
+(11, 10, 4, 'false', '');
 
 -- --------------------------------------------------------
 
@@ -108,7 +113,7 @@ CREATE TABLE `jaleseh` (
   `jaleseh_tarikh` date NOT NULL,
   `jaleseh_shomareh` int(11) NOT NULL,
   `tozihat` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `jaleseh`
@@ -130,7 +135,7 @@ CREATE TABLE `maghtaa` (
   `maghtaa_code` int(11) NOT NULL,
   `maghtaa_onvan` varchar(50) NOT NULL,
   `tozihat` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `maghtaa`
@@ -154,7 +159,14 @@ CREATE TABLE `nomarat` (
   `nomreh` double NOT NULL,
   `vazeiat_eeteraz` varchar(50) NOT NULL,
   `tozihat` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `nomarat`
+--
+
+INSERT INTO `nomarat` (`nomarat_code`, `entekhab_vahed_code`, `nomreh`, `vazeiat_eeteraz`, `tozihat`) VALUES
+(1, 1, 18, ' ', ' ');
 
 -- --------------------------------------------------------
 
@@ -170,7 +182,7 @@ CREATE TABLE `ostad` (
   `ostad_reshtah` varchar(50) NOT NULL,
   `user_code` int(11) NOT NULL,
   `tozihat` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ostad`
@@ -193,7 +205,7 @@ CREATE TABLE `ostad_dars` (
   `ostad_code` int(11) NOT NULL,
   `dars_code` int(11) NOT NULL,
   `tozihat` varchar(5000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ostad_dars`
@@ -217,7 +229,7 @@ CREATE TABLE `reshte` (
   `reshte_name` varchar(50) NOT NULL,
   `maghtaa_code` int(11) NOT NULL,
   `tozihat` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `reshte`
@@ -245,7 +257,7 @@ CREATE TABLE `student` (
   `student_tel_family` varchar(13) NOT NULL,
   `user_code` int(11) NOT NULL,
   `tozihat` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `student`
@@ -270,7 +282,7 @@ CREATE TABLE `term` (
   `term_shomareh` int(11) NOT NULL,
   `term_active` tinyint(1) NOT NULL,
   `tozihat` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `term`
@@ -292,7 +304,7 @@ CREATE TABLE `term_ostad_dars` (
   `term_ostad_dars_id` int(11) NOT NULL,
   `term_code` int(11) NOT NULL,
   `ostad_dars_code` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `term_ostad_dars`
@@ -316,7 +328,7 @@ CREATE TABLE `user` (
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `role` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
@@ -351,6 +363,7 @@ ALTER TABLE `dars`
 --
 ALTER TABLE `entekhab_vahed`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `Unique_Student_TermOstadDars` (`student_code`,`term_ostad_dars_id`),
   ADD KEY `student_code` (`student_code`),
   ADD KEY `term_ostad_dars_id` (`term_ostad_dars_id`);
 
@@ -438,13 +451,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `entekhab_vahed`
 --
 ALTER TABLE `entekhab_vahed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `hozor_gheyab`
 --
 ALTER TABLE `hozor_gheyab`
-  MODIFY `hozor_gheyab_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `hozor_gheyab_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `jaleseh`
@@ -456,7 +469,7 @@ ALTER TABLE `jaleseh`
 -- AUTO_INCREMENT for table `nomarat`
 --
 ALTER TABLE `nomarat`
-  MODIFY `nomarat_code` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `nomarat_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `ostad_dars`

@@ -69,6 +69,29 @@ if (!(isset($_SESSION["user_logged"]))) {
 
                 <?php
 
+                $tod_ghbol_code_ary = [];
+                $sql_tod_ghabol_shodeh = "SELECT tn.nomarat_code,tn.nomreh,tn.entekhab_vahed_code ,te.term_ostad_dars_id , drs.dars_code,drs.dars_name 
+                    FROM `nomarat` as tn 
+                        INNER JOIN entekhab_vahed as te on tn.entekhab_vahed_code = te.id 
+                        INNER JOIN term_ostad_dars as tod on tod.term_ostad_dars_id = te.term_ostad_dars_id 
+                        INNER JOIN ostad_dars as od on od.id = tod.ostad_dars_code 
+                        INNER JOIN dars as drs on od.dars_code = drs.dars_code 
+                    WHERE tn.nomreh >= 10 and tn.entekhab_vahed_code in ( SELECT `id` FROM `entekhab_vahed` WHERE `student_code` = $student_code );";
+
+
+                $result_tod_ghabol = $conn->query($sql_tod_ghabol_shodeh);
+                if($result_tod_ghabol->num_rows > 0 ){
+                    while ($row_tod_ghabol = $result_tod_ghabol->fetch_assoc()){
+                        $tod_ghbol_code_ary[] = $row_tod_ghabol["dars_code"];
+                    }
+                }
+
+
+                 //var_dump($tod_ghbol_code_ary);
+                //print_r($tod_ghbol_code_ary);
+
+                /*exit("***********************");*/
+
 
                 $sql_dros_term_active = "select t3.`term_ostad_dars_id`,t3.`term_code`,t3.`ostad_code`,t3.`dars_code`,t3.`term_sal_tahsili` ,t3.term_shomareh,t3.ostad_name ,t3.ostad_family ,t6.dars_name 
                             from (select t3.`term_ostad_dars_id`,t3.`term_code`,t3.term_shomareh,t3.`ostad_code`,t3.`dars_code`,t3.`term_sal_tahsili` ,t4.ostad_name ,t4.ostad_family 
@@ -88,6 +111,18 @@ if (!(isset($_SESSION["user_logged"]))) {
                     while ($row_dros_term = $result_dros_term_active->fetch_assoc()) {
                         // INSERT INTO `entekhab_vahed`(`id`, `term_ostad_dars_id`, `student_code`, `tozihat`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]')
                         // ostad_name ,ostad_family ,dars_name
+                        //echo  $row_dros_term["dars_code"];
+                        //echo "<br>";
+                        $is_dissabled = false;
+                        if(( gettype( array_search($row_dros_term["dars_code"],$tod_ghbol_code_ary))) == "integer"){
+                            //var_dump(array_search($row_dros_term["dars_code"],$tod_ghbol_code_ary));
+                            $is_dissabled = true;
+                        }
+                        //var_dump(array_search($row_dros_term["dars_code"],$tod_ghbol_code_ary));
+                        //echo "<hr>";
+
+                        //exit("<hr>");
+
                         $term_ostad_dars_id = $row_dros_term["term_ostad_dars_id"];
                         $ostad_name = $row_dros_term["ostad_name"];
                         $ostad_family = $row_dros_term["ostad_family"];
@@ -103,8 +138,10 @@ if (!(isset($_SESSION["user_logged"]))) {
                         echo "</td>";
 
                          echo "<td>";
-                         $chk_id = "chk_".$term_ostad_dars_id;
-                        echo "<input type='checkbox' id='$chk_id' onclick='checkboxes_term_ostad_dars_id(\"$chk_id\")' value='$term_ostad_dars_id'>";
+                         if($is_dissabled == false) {
+                             $chk_id = "chk_" . $term_ostad_dars_id;
+                             echo "<input type='checkbox' id='$chk_id' onclick='checkboxes_term_ostad_dars_id(\"$chk_id\")' value='$term_ostad_dars_id'>";
+                         }
                         echo "</td>";
                     echo "</tr>";
                     }
