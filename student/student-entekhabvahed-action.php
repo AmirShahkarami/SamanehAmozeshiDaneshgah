@@ -37,9 +37,26 @@ if (!(isset($_SESSION["user_logged"]))) {
         </div>
         <?php
     } else {
+
         $user_code = $user["user_code"];
 
+        $sql_student = "SELECT * FROM `student` WHERE `user_code` = $user_code";
+        $result_student = $conn->query($sql_student);
+        if ($result_student->num_rows == 1) {
+            $student = $result_student->fetch_assoc();
+            //`student_name`,`student_family`
+            $student_Fullname = "دانشجو:" . $student["student_name"] . ' ' . $student["student_family"];
+            $student_code = $student["student_code"];
+        }
 
+        ?>
+        <div class="mb-3 mt-3">
+            <a href="../logout.php" class="btn btn-danger">خروج</a>
+            <a href="student-dashboard.php" class="btn btn-primary">داشبورد</a>
+        </div>
+
+
+        <?php
         $ary_term_ostad_dars_id = $_POST["ary_term_ostad_dars_id"];
         $student_code = $_POST["student_code"];
         $student_Fullname = $_POST["student_Fullname"];
@@ -48,7 +65,51 @@ if (!(isset($_SESSION["user_logged"]))) {
         $ary_id = explode(",", $ary_term_ostad_dars_id);
         //var_dump($ary_id);
 
+        $sum_vahed = -1;
+        $max_vahed_mojaz = 20;
+        $alert = "";
+
         foreach ($ary_id as $id) {
+
+            $sql_sum_vahed = "SELECT sum(ttt.dars_vahed) as \"sum_vahed\" from (
+SELECT t.term_ostad_dars_id  ,t.ostad_name,t.ostad_family,t.dars_name,t.dars_vahed,tt.term_sal_tahsili,tt.term_shomareh FROM
+(
+SELECT tos.term_ostad_dars_id  ,o.ostad_name,o.ostad_family,d.dars_name,d.dars_vahed 
+FROM ostad_dars  as od
+INNER JOIN term_ostad_dars as tos on od.id = tos.ostad_dars_code
+INNER JOIN ostad as o on o.ostad_code = od.ostad_code
+INNER JOIN dars as d on d.dars_code = od.dars_code
+WHERE `term_ostad_dars_id` in 
+      (SELECT t1.`term_ostad_dars_id` 
+       FROM `entekhab_vahed` as te 
+           INNER join term_ostad_dars as t1 on te.term_ostad_dars_id = t1.term_ostad_dars_id 
+           INNER join term as t2 on t2.term_code = t1.term_code 
+           INNER join ostad_dars as t3 on t3.id = t1.ostad_dars_code 
+       WHERE te.student_code = 101 and t1.term_code = (SELECT `term_code` FROM `term` WHERE `term_active` = 1 )
+      
+      )
+) as t
+JOIN
+(SELECT t11.`term_ostad_dars_id` ,t22.term_sal_tahsili,t22.term_shomareh 
+ FROM `entekhab_vahed` as te 
+     INNER join term_ostad_dars as t11 on te.term_ostad_dars_id = t11.term_ostad_dars_id 
+     INNER join term as t22 on t22.term_code = t11.term_code 
+ WHERE `student_code` = 101) as tt
+on t.term_ostad_dars_id = tt.term_ostad_dars_id
+    ) as ttt";
+
+
+            $result_sum_vahed = $conn->query($sql_sum_vahed);
+            if ($result_sum_vahed->num_rows == 1) {
+                $row_sum_vahed = $result_sum_vahed->fetch_assoc();
+                $sum_vahed = $row_sum_vahed["sum_vahed"];
+
+                if ($sum_vahed >= $max_vahed_mojaz) {
+                    break;
+                }
+            }
+
+
             $sql_insert = "INSERT INTO `entekhab_vahed`(`id`, `term_ostad_dars_id`, `student_code`, `tozihat`) 
                                         VALUES (null,'$id','$student_code','')";
 
@@ -67,31 +128,57 @@ if (!(isset($_SESSION["user_logged"]))) {
             }
         }
 
-        $alert .= "
-<div class=\"mb-3 mt-3\">
-    <a href=\"#\" class=\"btn btn-primary\">؟</a>
-</div>
-</div>
-";
+
+        if ($sum_vahed >= $max_vahed_mojaz) {
+            $alert .= "
+    <div class=\"alert alert-danger\">
+    <strong>خطا!</strong>
+    تعداد واحد های اخذ شده نمیتواند بیشتر از حد مجاز باشد 
+  </div>
+    ";
+        }
+
 
         echo $alert;
 
         ?>
-        <div class="mb-3 mt-3">
-            <a href="../logout.php"class="btn btn-danger">خروج</a>
-        </div>
+
 
 
         <h2>
-            لیست  دروس انتخاب  شده -
+            لیست دروس انتخاب شده -
             <?php echo $student_Fullname; ?>
         </h2>
+
+
+        <?php
+        $sql_term_ative = "SELECT * FROM `term` WHERE `term_active` = 1";
+        $result_term_active = $conn->query($sql_term_ative);
+        if ($result_term_active->num_rows == 1) {
+            $row_term_active = $result_term_active->fetch_assoc();
+            $term_active_title = $row_term_active["term_sal_tahsili"] . ":[" . $row_term_active["term_shomareh"] . "]";
+        }
+        ?>
+
+        <h3>
+            <span>ترم فعال:</span>
+            <span>
+    <?php
+    if (isset($row_term_active)) {
+        echo $term_active_title;
+    }
+    ?>
+        </span>
+        </h3>
+
+        <h2>واحد های اخذ شده</h2>
         <table class="table table-striped">
             <thead>
             <tr>
                 <th scope="col">استاد</th>
                 <th scope="col">درس</th>
-                <th scope="col">عملیات</th>
+                <th scope="col">تعداد واحد</th>
+                <th scope="col">ترم</th>
             </tr>
             </thead>
             <tbody>
@@ -99,28 +186,46 @@ if (!(isset($_SESSION["user_logged"]))) {
             <?php
 
 
-            $sql_dros_term_active = "select t3.`term_ostad_dars_id`,t3.`term_code`,t3.`ostad_code`,t3.`dars_code`,t3.`term_sal_tahsili` ,t3.term_shomareh,t3.ostad_name ,t3.ostad_family ,t6.dars_name 
-                            from (select t3.`term_ostad_dars_id`,t3.`term_code`,t3.term_shomareh,t3.`ostad_code`,t3.`dars_code`,t3.`term_sal_tahsili` ,t4.ostad_name ,t4.ostad_family 
-                                        from (select t1.`term_ostad_dars_id`,t1.`term_code`,t1.`ostad_code`,t1.`dars_code`,t2.`term_sal_tahsili`,t2.term_shomareh 
-                                              from (SELECT `term_ostad_dars`.`term_ostad_dars_id`,`term_ostad_dars`.`term_code` , `ostad_dars`.`ostad_code` ,`ostad_dars`.`dars_code` 
-                                                    FROM `term_ostad_dars` INNER JOIN `ostad_dars` on `term_ostad_dars`.`ostad_dars_code` = `ostad_dars`.`id`) 
-                                                  AS t1 join `term` as t2 on t1.`term_code` = t2.`term_code`) as t3 join `ostad` as t4 on t3.`ostad_code` = t4.ostad_code) 
-                                                    as t3 join `dars` as t6 on t3.`dars_code` = t6.dars_code
-                                                    WHERE t3.`term_code` =(SELECT `term_code` FROM `term` WHERE `term_active` = 1);";
+            $sql_vahedhay_akhz_shodeh = "SELECT t.term_ostad_dars_id  ,t.ostad_name,t.ostad_family,t.dars_name,t.dars_vahed,tt.term_sal_tahsili,tt.term_shomareh FROM
+(
+SELECT tos.term_ostad_dars_id  ,o.ostad_name,o.ostad_family,d.dars_name,d.dars_vahed 
+FROM ostad_dars  as od
+INNER JOIN term_ostad_dars as tos on od.id = tos.ostad_dars_code
+INNER JOIN ostad as o on o.ostad_code = od.ostad_code
+INNER JOIN dars as d on d.dars_code = od.dars_code
+WHERE `term_ostad_dars_id` in 
+      (SELECT t1.`term_ostad_dars_id` 
+       FROM `entekhab_vahed` as te 
+           INNER join term_ostad_dars as t1 on te.term_ostad_dars_id = t1.term_ostad_dars_id 
+           INNER join term as t2 on t2.term_code = t1.term_code 
+           INNER join ostad_dars as t3 on t3.id = t1.ostad_dars_code 
+       WHERE `student_code` = $student_code)
+) as t
+JOIN
+(SELECT t11.`term_ostad_dars_id` ,t22.term_sal_tahsili,t22.term_shomareh 
+ FROM `entekhab_vahed` as te 
+     INNER join term_ostad_dars as t11 on te.term_ostad_dars_id = t11.term_ostad_dars_id 
+     INNER join term as t22 on t22.term_code = t11.term_code 
+ WHERE `student_code` = $student_code) as tt
+on t.term_ostad_dars_id = tt.term_ostad_dars_id
+;";
 
-            $result_dros_term_active = $conn->query($sql_dros_term_active);
+            //exit($sql_vahedhay_akhz_shodeh);
+
+            $result_hedhay_akhz_shodeh = $conn->query($sql_vahedhay_akhz_shodeh);
 
 
-            if ($result_dros_term_active->num_rows > 0) {
+            if ($result_hedhay_akhz_shodeh->num_rows > 0) {
 
                 // `term_code`, `term_sal_tahsili`, `term_shomareh`, `tozihat`
-                while ($row_dros_term = $result_dros_term_active->fetch_assoc()) {
-                    // INSERT INTO `entekhab_vahed`(`id`, `term_ostad_dars_id`, `student_code`, `tozihat`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]')
-                    // ostad_name ,ostad_family ,dars_name
+                while ($row_dros_term = $result_hedhay_akhz_shodeh->fetch_assoc()) {
+                    // term_ostad_dars_id  ,ostad_name,ostad_family,dars_name,dars_vahed,term_sal_tahsili
                     $term_ostad_dars_id = $row_dros_term["term_ostad_dars_id"];
                     $ostad_name = $row_dros_term["ostad_name"];
                     $ostad_family = $row_dros_term["ostad_family"];
                     $dars_name = $row_dros_term["dars_name"];
+                    $dars_vahed = $row_dros_term["dars_vahed"];
+                    $term_title = $row_dros_term["term_sal_tahsili"] . ":[" . $row_dros_term["term_shomareh"] . "]";
                     $ostad_Fullname = $ostad_name . ' ' . $ostad_family;
                     echo "<tr>";
                     echo "<td>";
@@ -132,8 +237,16 @@ if (!(isset($_SESSION["user_logged"]))) {
                     echo "</td>";
 
                     echo "<td>";
+                    echo "$dars_vahed";
+                    echo "</td>";
+
+                    echo "<td>";
+                    echo "$term_title";
+                    echo "</td>";
+
+                    echo "<td>";
                     $chk_id = "chk_" . $term_ostad_dars_id;
-                    echo "<input type='checkbox' id='$chk_id' onclick='checkboxes_term_ostad_dars_id(\"$chk_id\")' value='$term_ostad_dars_id'>";
+
                     echo "</td>";
                     echo "</tr>";
                 }
@@ -144,9 +257,55 @@ if (!(isset($_SESSION["user_logged"]))) {
             }
             ?>
 
-            </tr>
+
             </tbody>
         </table>
+        <hr>
+
+        <?php
+        $sql_sum_vahed = "SELECT sum(ttt.dars_vahed) as \"sum_vahed\" from (
+SELECT t.term_ostad_dars_id  ,t.ostad_name,t.ostad_family,t.dars_name,t.dars_vahed,tt.term_sal_tahsili,tt.term_shomareh FROM
+(
+SELECT tos.term_ostad_dars_id  ,o.ostad_name,o.ostad_family,d.dars_name,d.dars_vahed 
+FROM ostad_dars  as od
+INNER JOIN term_ostad_dars as tos on od.id = tos.ostad_dars_code
+INNER JOIN ostad as o on o.ostad_code = od.ostad_code
+INNER JOIN dars as d on d.dars_code = od.dars_code
+WHERE `term_ostad_dars_id` in 
+      (SELECT t1.`term_ostad_dars_id` 
+       FROM `entekhab_vahed` as te 
+           INNER join term_ostad_dars as t1 on te.term_ostad_dars_id = t1.term_ostad_dars_id 
+           INNER join term as t2 on t2.term_code = t1.term_code 
+           INNER join ostad_dars as t3 on t3.id = t1.ostad_dars_code 
+       WHERE te.student_code = 101 and t1.term_code = (SELECT `term_code` FROM `term` WHERE `term_active` = 1 )
+      
+      )
+) as t
+JOIN
+(SELECT t11.`term_ostad_dars_id` ,t22.term_sal_tahsili,t22.term_shomareh 
+ FROM `entekhab_vahed` as te 
+     INNER join term_ostad_dars as t11 on te.term_ostad_dars_id = t11.term_ostad_dars_id 
+     INNER join term as t22 on t22.term_code = t11.term_code 
+ WHERE `student_code` = 101) as tt
+on t.term_ostad_dars_id = tt.term_ostad_dars_id
+    ) as ttt";
+        $result_sum_vahed = $conn->query($sql_sum_vahed);
+        if ($result_sum_vahed->num_rows == 1) {
+            $row_sum_vahed = $result_sum_vahed->fetch_assoc();
+            $sum_vahed = $row_sum_vahed["sum_vahed"];
+        }
+        ?>
+
+        <h3>
+            <span> مجموع واحد های اخذ شده:</span>
+            <span>
+    <?php
+    if (isset($sum_vahed)) {
+        echo $sum_vahed;
+    }
+    ?>
+        </span>
+        </h3>
 
 
         <?php
