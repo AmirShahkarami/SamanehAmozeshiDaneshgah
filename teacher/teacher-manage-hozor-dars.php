@@ -66,6 +66,34 @@ if ($result_teacher->num_rows == 1) {
 
     <?php
 
+
+    $sql_hozor_gheyab_sabt_shodeh = "SELECT hg.entekhab_vahed_code , hg.vazeiat_hozor , stu.student_name , stu.student_family ,stu.student_codemeli , jls.jaleseh_tarikh , jls.jaleseh_shomareh 
+FROM `hozor_gheyab` as hg 
+    INNER JOIN entekhab_vahed as ev on hg.entekhab_vahed_code = ev.id 
+    INNER JOIN term_ostad_dars as tod on ev.term_ostad_dars_id = tod.term_ostad_dars_id 
+    INNER JOIN student as stu on stu.student_code = ev.student_code 
+    INNER JOIN jaleseh as jls on jls.jaleseh_code = hg.jaleseh_id 
+WHERE `entekhab_vahed_code` IN ( 
+                                    SELECT id FROM `entekhab_vahed` WHERE `term_ostad_dars_id` = $term_ostad_dars_id;
+                                )";
+
+    echo $sql_hozor_gheyab_sabt_shodeh;
+    exit("<hr><hr>");
+
+    
+    $hozor_gheyab_sabt_shodeh = [];
+    $result_sql_hozor_gheyab_sabt_shodeh = $conn->query($sql_hozor_gheyab_sabt_shodeh);
+    if($result_sql_hozor_gheyab_sabt_shodeh->num_rows > 0){
+     while ($row_hozor_gheyab_sabt_shodeh = $result_sql_hozor_gheyab_sabt_shodeh->fetch_assoc()){
+         $hozor_gheyab_sabt_shodeh[]  = $row_hozor_gheyab_sabt_shodeh;
+     }
+    }
+
+
+    var_dump($hozor_gheyab_sabt_shodeh);
+    exit("<hr><hr>");
+
+
     $students = [];
     $jalasat = [];
 
