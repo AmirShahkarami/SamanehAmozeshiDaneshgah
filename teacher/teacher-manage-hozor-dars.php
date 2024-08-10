@@ -67,18 +67,17 @@ if ($result_teacher->num_rows == 1) {
     <?php
 
 
-    $sql_hozor_gheyab_sabt_shodeh = "SELECT hg.entekhab_vahed_code , hg.vazeiat_hozor , stu.student_name , stu.student_family ,stu.student_codemeli , jls.jaleseh_tarikh , jls.jaleseh_shomareh 
+    $sql_hozor_gheyab_sabt_shodeh = "  SELECT hg.entekhab_vahed_code , hg.vazeiat_hozor ,stu.student_code, stu.student_name , stu.student_family ,stu.student_codemeli , jls.jaleseh_tarikh , jls.jaleseh_shomareh ,jls.jaleseh_code 
 FROM `hozor_gheyab` as hg 
     INNER JOIN entekhab_vahed as ev on hg.entekhab_vahed_code = ev.id 
     INNER JOIN term_ostad_dars as tod on ev.term_ostad_dars_id = tod.term_ostad_dars_id 
     INNER JOIN student as stu on stu.student_code = ev.student_code 
-    INNER JOIN jaleseh as jls on jls.jaleseh_code = hg.jaleseh_id 
-WHERE `entekhab_vahed_code` IN ( 
-                                    SELECT id FROM `entekhab_vahed` WHERE `term_ostad_dars_id` = $term_ostad_dars_id;
-                                )";
+    INNER JOIN jaleseh as jls on jls.jaleseh_code = hg.jaleseh_id
+    
+ WHERE `entekhab_vahed_code`  IN ( SELECT id FROM `entekhab_vahed` WHERE `term_ostad_dars_id` =  $term_ostad_dars_id)";
 
-    echo $sql_hozor_gheyab_sabt_shodeh;
-    exit("<hr><hr>");
+    //echo $sql_hozor_gheyab_sabt_shodeh;
+    //exit("<hr><hr>");
 
     
     $hozor_gheyab_sabt_shodeh = [];
@@ -90,8 +89,8 @@ WHERE `entekhab_vahed_code` IN (
     }
 
 
-    var_dump($hozor_gheyab_sabt_shodeh);
-    exit("<hr><hr>");
+    //var_dump($hozor_gheyab_sabt_shodeh);
+    //exit("<hr><hr>");
 
 
     $students = [];
@@ -152,7 +151,7 @@ WHERE `entekhab_vahed_code` IN (
         foreach ($jalasat as $jaleseh) {
             if ($counter_jalesat == 0) {
                 $jalasat_code_stringAray .= " " . $jaleseh["jaleseh_code"];
-                $jalasat_value_stringAray .= " " . $jaleseh["jaleseh_code"];
+                //$jalasat_value_stringAray .= " " . $jaleseh["jaleseh_code"];
             } else {
                 $jalasat_code_stringAray .= " , " . $jaleseh["jaleseh_code"];
             }
@@ -178,7 +177,9 @@ WHERE `entekhab_vahed_code` IN (
                 <td> <?php echo $student_codemeli ?></td>
                 <?php
                 $counter_jalesat = 1;
-                foreach ($jalasat as $jaleseh) {
+                //$hozor_gheyab_sabt_shodeh
+                foreach ($hozor_gheyab_sabt_shodeh as $jaleseh) {
+                    if($jaleseh["student_code"]==$student_code){
                     $control_name_id = "tod_" . $term_ostad_dars_id . "-studentcode_" . $student_code . "-jalesehcode_" . $jaleseh["jaleseh_code"];
                     ?>
                     <td>
@@ -186,13 +187,14 @@ WHERE `entekhab_vahed_code` IN (
                             <input class="form-check-input jaleseh-check jalasat-studentcode-<?php echo $student_code ?>"
                                    type="checkbox" role="switch"
                                    id="<?php echo $control_name_id ?>" name="<?php echo $control_name_id ?>"
-                                   value="false" title="<?php echo $jaleseh["jaleseh_tarikh"] ?>"
+                                   value="<?php echo $jaleseh["vazeiat_hozor"]?>" title="<?php echo $jaleseh["jaleseh_tarikh"] ?>"
                                    datajalasehcode="<?php echo $jaleseh["jaleseh_code"] ?>"/>
                             <label class="form-check-label" for="<?php echo $control_name_id ?>"
                                    title="<?php echo $jaleseh["jaleseh_tarikh"] ?>">حاضر</label>
                         </div>
                     </td>
                     <?php
+                }
                 }
                 ?>
             </tr>
@@ -225,7 +227,7 @@ WHERE `entekhab_vahed_code` IN (
         jalasat_code_ary = [];
 
         <?php
-        echo "student_code_ary = " . $student_code_stringAray . ";";
+        //echo "student_code_ary = " . $student_code_stringAray . ";";
         echo "jalasat_code_ary = " . $jalasat_code_stringAray . ";";
         ?>
 
