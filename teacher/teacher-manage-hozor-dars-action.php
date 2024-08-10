@@ -41,6 +41,9 @@ if ($user["role"] == "student") {
         $jalasat_hozor_students_data_json = $_POST["jalasat_hozor_students_data"];
 
         $jalasat_hozor_students_data = json_decode($jalasat_hozor_students_data_json);
+        //var_dump($jalasat_hozor_students_data);
+        //exit("<hr><hr>");
+
         if (isset($jalasat_hozor_students_data->jalasat_hozor)) {
             $students = $jalasat_hozor_students_data->jalasat_hozor->students;
             //var_dump($jalasat_hozor_students_data->jalasat_hozor);

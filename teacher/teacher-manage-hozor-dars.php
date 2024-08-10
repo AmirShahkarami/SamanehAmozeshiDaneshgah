@@ -187,8 +187,23 @@ FROM `hozor_gheyab` as hg
                             <input class="form-check-input jaleseh-check jalasat-studentcode-<?php echo $student_code ?>"
                                    type="checkbox" role="switch"
                                    id="<?php echo $control_name_id ?>" name="<?php echo $control_name_id ?>"
-                                   value="<?php echo $jaleseh["vazeiat_hozor"]?>" title="<?php echo $jaleseh["jaleseh_tarikh"] ?>"
-                                   datajalasehcode="<?php echo $jaleseh["jaleseh_code"] ?>"/>
+                                   title="<?php echo $jaleseh["jaleseh_tarikh"] ?>"
+                                   datajalasehcode="<?php echo $jaleseh["jaleseh_code"] ?>"
+                                   value="<?php echo $jaleseh["vazeiat_hozor"] ?>"
+
+                                   <?php
+                                   if($jaleseh["vazeiat_hozor"]== "true"){
+                                       ?>
+                                            checked />
+                                           <?php
+                                   }
+                                   else{
+                                       ?>
+                                            />
+                                       <?php
+                                   }
+                                   ?>
+
                             <label class="form-check-label" for="<?php echo $control_name_id ?>"
                                    title="<?php echo $jaleseh["jaleseh_tarikh"] ?>">حاضر</label>
                         </div>
@@ -203,6 +218,8 @@ FROM `hozor_gheyab` as hg
         }
         $student_code_stringAray .= "]";
 
+        //var_dump($student_code_stringAray);
+        //exit("<hr>********************");
         ?>
         </tbody>
     </table>
@@ -227,7 +244,7 @@ FROM `hozor_gheyab` as hg
         jalasat_code_ary = [];
 
         <?php
-        //echo "student_code_ary = " . $student_code_stringAray . ";";
+        echo "student_code_ary = " . $student_code_stringAray . ";";
         echo "jalasat_code_ary = " . $jalasat_code_stringAray . ";";
         ?>
 
@@ -249,7 +266,7 @@ FROM `hozor_gheyab` as hg
                     for (n = 0; n < student_code_ary.length; n++) {
                         jalasat_studentcode = document.getElementsByClassName("jalasat-studentcode-" + student_code_ary[n]);
                         //console.log("jalasat_studentcode[0]  = " + jalasat_studentcode[0])
-                        //console.log("jalasat_studentcode[0].getAttribute('datajalasehcode')  = " + jalasat_studentcode[0].getAttribute('datajalasehcode'))
+                        console.log("jalasat_studentcode[0].getAttribute('datajalasehcode')  = " + jalasat_studentcode[0].getAttribute('datajalasehcode'))
                         student_json = "";
                         if (counter_students == 0) {
                             student_json = "{\"student_code\":" + student_code_ary[0] + ", \"jalasat\":[";
